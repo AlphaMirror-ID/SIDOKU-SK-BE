@@ -1,0 +1,17 @@
+# Files requested to be ignored
+requirements.txt
+.env
+list_function_village_server.txt
+
+# Python / Environment virtual directories & caches
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+
+# Temporary / Storage folders
+temp/
+storage/
