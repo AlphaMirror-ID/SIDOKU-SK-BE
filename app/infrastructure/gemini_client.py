@@ -23,7 +23,7 @@ def classify_document(text: str) -> Dict[str, Any]:
     ## ATURAN UTAMA (Wajib diperiksa PERTAMA sebelum klasifikasi)
 
     Dokumen HARUS masuk kategori "Lainnya" jika memenuhi salah satu kondisi berikut:
-    - Dokumen akademik/ilmiah: makalah, skripsi, tesis, jurnal, paper, laporan praktikum
+    - Dokumen akademik/ilmiah: makalah, skripsi, tesis, jurnal, paper, laporan praktikum (KECUALI surat pengantar resmi permohonan KKN/penelitian dari kampus kepada Kepala Desa)
     - Data institusi non-desa: nilai mahasiswa/siswa, absensi sekolah/kampus, transkrip akademik
     - Dokumen perusahaan/korporat yang tidak berkaitan dengan kegiatan desa
     - Teks tidak bermakna, konten random, atau tidak bisa diidentifikasi
@@ -41,7 +41,7 @@ def classify_document(text: str) -> Dict[str, Any]:
     6. Pertanahan & Perkebunan (TNH) — SKT, AJB, sporadik, sertifikat tanah milik warga desa, sengketa tanah desa
     7. Pemberdayaan Masyarakat (PMD) — Kelompok tani, UMKM desa, PKK, BUMDes, organisasi kepemudaan desa (misal: Pemuda Pemudi, Karang Taruna, Remaja Masjid,dll), surat pemberitahuan/permohonan izin kegiatan warga kepada desa
     8. Keamanan & Ketertiban (KMN) — Laporan kejadian di desa, jadwal ronda, surat keterangan catatan kepolisian warga
-    9. Pendidikan (PDK) — Surat keterangan ijazah warga, rekomendasi beasiswa warga desa, laporan PAUD/TK desa
+    9. Pendidikan (PDK) — Surat keterangan ijazah warga, rekomendasi beasiswa warga desa, laporan PAUD/TK desa, surat dari institusi pendidikan/kampus (seperti pengantar KKN, izin penelitian, magang mahasiswa/siswa di desa)
     10. Lainnya (LNY) — Semua dokumen yang tidak termasuk kategori 1–9 di atas
 
     ## PANDUAN KATEGORI AMBIGU
@@ -51,7 +51,8 @@ def classify_document(text: str) -> Dict[str, Any]:
     Pertanyaan 1: Siapa yang membuat atau membutuhkan dokumen ini?
     - Dibuat oleh / untuk / atas nama Pemerintah Desa Sukasari Kidul → lanjut ke pertanyaan berikutnya
     - Dibuat oleh warga, organisasi kemasyarakatan desa, atau kelompok masyarakat desa (seperti karang taruna, pemuda desa, PKK, kelompok tani,dll) dan DITUJUKAN kepada pemerintah desa → lanjut ke pertanyaan berikutnya
-    - Dibuat oleh institusi luar desa (kampus, perusahaan, LSM non-desa, pribadi tanpa kaitan desa) → "Lainnya"
+    - Dibuat oleh institusi luar desa (seperti kampus, sekolah, dinas kabupaten) dan DITUJUKAN resmi kepada pemerintah desa untuk koordinasi, perizinan kegiatan (KKN, penelitian, magang), atau urusan resmi desa → lanjut ke pertanyaan berikutnya
+    - Dibuat oleh institusi luar desa (perusahaan swasta komersial, LSM non-desa, pribadi tanpa kaitan desa) yang tidak ada kaitannya dengan pelayanan desa → "Lainnya"
 
     Pertanyaan 2: Apa fungsi operasional dokumen ini di desa?
     - Digunakan untuk melayani warga, mencatat kegiatan, atau mengelola aset desa → pilih kategori 1–9
