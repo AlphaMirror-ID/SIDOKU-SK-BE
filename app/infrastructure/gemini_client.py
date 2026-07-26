@@ -65,18 +65,23 @@ def classify_document(text: str) -> Dict[str, Any]:
     - Jika TIDAK ADA tanggal yang tercantum di dalam teks dokumen, kamu WAJIB mengisi dengan null (jangan menebak/mengarang tanggal).
 
     - suggested_filename (WAJIB mengikuti format berikut, TANPA ekstensi):
-    - Jika document_date ADA nilainya: [KODE-KATEGORI]_[JENIS_DOKUMEN]_[NAMA/NIK]_[YYYY-MM-DD]
-    - Jika document_date bernilai null: [KODE-KATEGORI]_[JENIS_DOKUMEN]_[NAMA/NIK]
+    - Jika document_date ADA nilainya: [KODE-KATEGORI]_[JENIS-DOKUMEN]_[NAMA-atau-NIK]_[YYYY-MM-DD]
+    - Jika document_date bernilai null: [KODE-KATEGORI]_[JENIS-DOKUMEN]_[NAMA-atau-NIK]
 
-    Ketentuan:
-    - Gunakan kode kategori (KPD, ADM, KEU, BNG, KSS, TNH, PMD, KMN, PDK, LNY)
-    - JENIS_DOKUMEN: contoh (KK, KTP, Surat_Domisili, RAB, LPJ, Proposal, dll)
-    - NAMA/NIK: gunakan nama orang atau entitas utama dalam dokumen
+    Ketentuan Pemformatan Karakter (Sangat Ketat!):
+    - Gunakan KODE-KATEGORI (KPD, ADM, KEU, BNG, KSS, TNH, PMD, KMN, PDK, LNY)
+    - Gunakan tanda hubung/strip (-) untuk memisahkan kata di dalam JENIS-DOKUMEN dan NAMA-atau-NIK jika terdiri dari lebih dari satu kata.
+    - DILARANG KERAS menggunakan spasi ( ), garis bawah (_), atau menyatukan kata (tanpa pemisah) di dalam sub-field JENIS-DOKUMEN dan NAMA-atau-NIK. Garis bawah (_) HANYA boleh digunakan sebagai pemisah antar field utama (pemisah kode kategori, jenis dokumen, nama, dan tanggal).
 
-    Contoh:
-    KPD_KK_Aziyusman_2025-04-17
-    KEU_RAB_Pembangunan-Jalan_2025-03-01
-    ADM_SuratMasuk_Rapat-Desa_2025-02-10_Undangan
+    Contoh Yang Benar:
+    - KPD_Akta-Kelahiran_Muhammad-Wisnu-Pradana_2024-05-02 (Benar, menggunakan strip di dalam sub-field, garis bawah hanya sebagai pemisah utama)
+    - KEU_Rencana-Anggaran-Biaya_Pembangunan-Jalan_2025-03-01 (Benar)
+    - ADM_Surat-Pengantar_Bagus-Gunawan-07-24 (Benar)
+
+    Contoh Yang Salah (JANGAN DILAKUKAN):
+    - KPD_Akta_Kelahiran_Muhammad_Wisnu_Pradana_2024-05-02 (Salah, menggunakan garis bawah di dalam sub-field)
+    - KPD_Akta Kelahiran_Muhammad Wisnu Pradana_2024-05-02 (Salah, menggunakan spasi)
+    - KPD_AktaKelahiran_MuhammadWisnuPradana_2024-05-02 (Salah, kata digabung tanpa pemisah)
 
     ## FORMAT OUTPUT
 
